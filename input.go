@@ -128,7 +128,7 @@ func (i Input) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if !isSelect && i.Type != "" {
 		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "Type"}, Value: i.Type})
 	}
-	if len(i.Values()) < 2 {
+	if !isSelect {
 		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "Value"}, Value: i.Value})
 	}
 	if i.MinLength > 0 {
@@ -211,7 +211,14 @@ func (p *Input) Validate() {
 				}
 			}
 			if !found {
-				p.Error = fmt.Sprintf("%#v is not an option", v)
+				error := fmt.Sprintf("%#v is not an option", v)
+				p.Options = append([]Option{{
+					Value:    v,
+					Label:    error,
+					Selected: true,
+					Disabled: true,
+				}}, p.Options...)
+				p.Error = error
 			}
 		}
 	}

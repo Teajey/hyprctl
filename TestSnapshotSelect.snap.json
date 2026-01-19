@@ -7,6 +7,12 @@
   "Error": "\"Wumbo\" is not an option",
   "Options": [
     {
+      "Value": "Wumbo",
+      "Label": "\"Wumbo\" is not an option",
+      "Selected": true,
+      "Disabled": true
+    },
+    {
       "Value": "lg",
       "Label": "Large"
     },
