@@ -39,7 +39,7 @@ func writeSnapshot(t *testing.T, path string, actual []byte) {
 	}
 }
 
-func snapshot(t *testing.T, path string, actual []byte) {
+func Snapshot(t *testing.T, path string, actual []byte) {
 	if !pathExists(path) {
 		writeSnapshot(t, path, actual)
 		t.Errorf("Snapshot file created: %s", path)
@@ -70,7 +70,7 @@ func snapshot(t *testing.T, path string, actual []byte) {
 }
 
 func SnapshotText(t *testing.T, actual string) {
-	snapshot(t, fmt.Sprintf("%s.snap.txt", t.Name()), []byte(actual))
+	Snapshot(t, fmt.Sprintf("%s.snap.txt", t.Name()), []byte(actual))
 }
 
 func SnapshotJson(t *testing.T, actual any) {
@@ -78,7 +78,7 @@ func SnapshotJson(t *testing.T, actual any) {
 	if err != nil {
 		t.Fatalf("Snapshot failed to serialize actual to JSON: %s", err)
 	}
-	snapshot(t, fmt.Sprintf("%s.snap.json", t.Name()), data)
+	Snapshot(t, fmt.Sprintf("%s.snap.json", t.Name()), data)
 }
 
 func SnapshotXml(t *testing.T, actual any) {
@@ -86,5 +86,5 @@ func SnapshotXml(t *testing.T, actual any) {
 	if err != nil {
 		t.Fatalf("Snapshot failed to serialize actual to XML: %s", err)
 	}
-	snapshot(t, fmt.Sprintf("%s.snap.xml", t.Name()), data)
+	Snapshot(t, fmt.Sprintf("%s.snap.xml", t.Name()), data)
 }

@@ -2,6 +2,7 @@ package hyprctl_test
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"testing"
 
@@ -73,7 +74,7 @@ func TestSnapshotInput(t *testing.T) {
 	err = tm.ExecuteTemplate(buf, "input", input)
 	assert.FatalErr(t, "executing template", err)
 
-	assert.SnapshotText(t, buf.String())
+	assert.Snapshot(t, fmt.Sprintf("%s.snap.html", t.Name()), buf.Bytes())
 	assert.SnapshotXml(t, input)
 	assert.SnapshotJson(t, input)
 }
@@ -100,7 +101,7 @@ func TestSnapshotSelect(t *testing.T) {
 	err = tm.ExecuteTemplate(buf, "input", input)
 	assert.FatalErr(t, "executing template", err)
 
-	assert.SnapshotText(t, buf.String())
+	assert.Snapshot(t, fmt.Sprintf("%s.snap.html", t.Name()), buf.Bytes())
 	assert.SnapshotXml(t, input)
 	assert.SnapshotJson(t, input)
 }
@@ -128,7 +129,7 @@ func TestSnapshotMultiSelect(t *testing.T) {
 	err = tm.ExecuteTemplate(buf, "input", input)
 	assert.FatalErr(t, "executing template", err)
 
-	assert.SnapshotText(t, buf.String())
+	assert.Snapshot(t, fmt.Sprintf("%s.snap.html", t.Name()), buf.Bytes())
 	assert.SnapshotXml(t, input)
 	assert.SnapshotJson(t, input)
 }
