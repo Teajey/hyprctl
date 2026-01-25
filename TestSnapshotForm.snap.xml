@@ -1,8 +1,20 @@
-<Form Method="POST">
-  <content>
-    <Input Label="Username" Name="username" Value="" Required="true"></Input>
-    <Input Label="Password" Name="password" Type="password" Value="" Required="true"></Input>
-    <A Href="/register">Register</A>
-    <Submit>Login</Submit>
-  </content>
-</Form>
+<myPage>
+  <Title>Login to my thing</Title>
+  <Form Method="POST">
+    <login>
+      <Input Label="Username" Name="username" Value="" Required="true"></Input>
+      <Input Label="Password" Name="password" Type="password" Value="" Required="true"></Input>
+      <Input Label="Confirm password" Name="confirmPassword" Type="password" Value="" Required="true"></Input>
+      <Select Label="Favourite food" Name="favFood">
+        <Option>fruit</Option>
+        <Option>vegetables</Option>
+        <Option>meat</Option>
+        <Option>fish</Option>
+        <Option>bugs</Option>
+      </Select>
+      <Map Label="Any other arbitrary information you wanna provide?" Name="misc"></Map>
+      <A Href="/register">Register</A>
+      <Submit>Login</Submit>
+    </login>
+  </Form>
+</myPage>

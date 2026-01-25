@@ -18,34 +18,66 @@ func TestMain(m *testing.M) {
 	m.Run()
 }
 
-type content struct {
-	Username     hyprctl.Input
-	Password     hyprctl.Input
-	RegisterLink hyprctl.Link
-	Submit       hyprctl.Submit
+type myPage struct {
+	Title string
+	Form  hyprctl.Form[login]
+}
+
+type login struct {
+	Username        hyprctl.Input
+	Password        hyprctl.Input
+	ConfirmPassword hyprctl.Input
+	FavouriteFood   hyprctl.Input
+	Misc            hyprctl.Map
+	Login           hyprctl.Link
+	Submit          hyprctl.Submit
 }
 
 func TestSnapshotForm(t *testing.T) {
-	form := hyprctl.Form[content]{
-		Method: "POST",
-		Elements: content{
-			Username: hyprctl.Input{
-				Label:    "Username",
-				Name:     "username",
-				Required: true,
-			},
-			Password: hyprctl.Input{
-				Label:    "Password",
-				Name:     "password",
-				Type:     "password",
-				Required: true,
-			},
-			RegisterLink: hyprctl.Link{
-				Name: "Register",
-				Href: "/register",
-			},
-			Submit: hyprctl.Submit{
-				Label: "Login",
+	form := myPage{
+		Title: "Login to my thing",
+		Form: hyprctl.Form[login]{
+			Method: "POST",
+			Elements: login{
+				Username: hyprctl.Input{
+					Label:    "Username",
+					Name:     "username",
+					Required: true,
+				},
+				Password: hyprctl.Input{
+					Label:    "Password",
+					Name:     "password",
+					Type:     "password",
+					Required: true,
+				},
+				ConfirmPassword: hyprctl.Input{
+					Label:    "Confirm password",
+					Name:     "confirmPassword",
+					Type:     "password",
+					Required: true,
+				},
+				FavouriteFood: hyprctl.Input{
+					Label: "Favourite food",
+					Name:  "favFood",
+					Options: []hyprctl.Option{
+						{Value: "fruit"},
+						{Value: "vegetables"},
+						{Value: "meat"},
+						{Value: "fish"},
+						{Value: "bugs"},
+					},
+				},
+				Misc: hyprctl.Map{
+					Label: "Any other arbitrary information you wanna provide?",
+					Name:  "misc",
+				},
+				Login: hyprctl.Link{
+					Name: "Register",
+					Href: "/register",
+				},
+				Submit: hyprctl.Submit{
+					Label: "Login",
+				},
 			},
 		},
 	}

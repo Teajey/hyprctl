@@ -7,6 +7,7 @@ import (
 )
 
 type Map struct {
+	Label   string
 	Name    string
 	Entries map[string][]string
 }
@@ -26,6 +27,7 @@ func (m *Map) ExtractFormValues(form url.Values) {
 
 func (m Map) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name.Local = "Map"
+	start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "Label"}, Value: m.Label})
 	start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "Name"}, Value: m.Name})
 
 	if err := e.EncodeToken(start); err != nil {
