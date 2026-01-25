@@ -1,0 +1,8 @@
+<fieldset name="{{.Name}}">
+  <legend>{{ .Label }}</legend>
+  {{- range $k, $values := .Entries}}
+    {{- range $values}}
+  <input name="{{ $.NamedKey $k }}" value="{{ . }}">
+    {{- end}}
+  {{- end}}
+</fieldset>

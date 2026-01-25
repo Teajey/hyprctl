@@ -1,4 +1,4 @@
-<c:Map label="" name="">
+<c:Map label="Leftover data" name="">
   <c:Input name="data[drinks]" value="water"></c:Input>
   <c:Input name="data[drinks]" value="tea"></c:Input>
   <c:Input name="data[food]" value="icecream"></c:Input>

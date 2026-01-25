@@ -14,6 +14,14 @@ type Map struct {
 	Entries map[string][]string `json:"entries"`
 }
 
+func (m Map) NamedKey(key string) string {
+	if m.Name == "" {
+		return key
+	} else {
+		return fmt.Sprintf("%s[%s]", m.Name, key)
+	}
+}
+
 func (m *Map) ExtractFormValues(form url.Values) {
 	if m.Entries == nil {
 		m.Entries = make(map[string][]string, len(form))
@@ -54,13 +62,9 @@ func (m Map) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	sort.Strings(keys)
 
 	for _, k := range keys {
-		key := k
-		if m.Name != "" {
-			key = fmt.Sprintf("%s[%s]", m.Name, k)
-		}
 		for _, v := range m.Entries[k] {
 			keyElem := xml.StartElement{Name: xml.Name{Local: "c:Input"}}
-			keyElem.Attr = append(keyElem.Attr, xml.Attr{Name: xml.Name{Local: "name"}, Value: key})
+			keyElem.Attr = append(keyElem.Attr, xml.Attr{Name: xml.Name{Local: "name"}, Value: m.NamedKey(k)})
 			keyElem.Attr = append(keyElem.Attr, xml.Attr{Name: xml.Name{Local: "value"}, Value: v})
 			if err := e.EncodeElement("", keyElem); err != nil {
 				return err

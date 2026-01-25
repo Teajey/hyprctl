@@ -14,7 +14,7 @@ import (
 var tm *template.Template
 
 func TestMain(m *testing.M) {
-	tm = template.Must(template.New("").ParseFiles("./examples/templates/input.gotmpl"))
+	tm = template.Must(template.New("").ParseGlob("./examples/templates/*.gotmpl"))
 	m.Run()
 }
 
@@ -169,7 +169,7 @@ func TestSnapshotMultiSelect(t *testing.T) {
 }
 
 func TestSnapshotMap(t *testing.T) {
-	input := hyprctl.Map{Name: "data"}
+	input := hyprctl.Map{Label: "Random data", Name: "data"}
 	form := url.Values{
 		"tree":         {"oak"},
 		"data[food]":   {"icecream"},
@@ -178,13 +178,18 @@ func TestSnapshotMap(t *testing.T) {
 
 	input.ExtractFormValues(form)
 
+	buf := bytes.NewBuffer([]byte{})
+	err := tm.ExecuteTemplate(buf, "map.gotmpl", input)
+	assert.FatalErr(t, "executing template", err)
+
+	assert.Snapshot(t, fmt.Sprintf("%s.snap.html", t.Name()), buf.Bytes())
 	assert.SnapshotXml(t, input)
 	assert.SnapshotJson(t, input)
 	assert.Eq(t, "only unmatched entries are still in form", 1, len(form))
 }
 
 func TestSnapshotBucket(t *testing.T) {
-	input := hyprctl.Map{}
+	input := hyprctl.Map{Label: "Leftover data"}
 	form := url.Values{
 		"tree":         {"oak"},
 		"data[food]":   {"icecream"},
@@ -193,6 +198,11 @@ func TestSnapshotBucket(t *testing.T) {
 
 	input.ExtractFormValues(form)
 
+	buf := bytes.NewBuffer([]byte{})
+	err := tm.ExecuteTemplate(buf, "map.gotmpl", input)
+	assert.FatalErr(t, "executing template", err)
+
+	assert.Snapshot(t, fmt.Sprintf("%s.snap.html", t.Name()), buf.Bytes())
 	assert.SnapshotXml(t, input)
 	assert.SnapshotJson(t, input)
 	assert.Eq(t, "all entries are extracted by Map", 0, len(form))
