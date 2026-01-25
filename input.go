@@ -77,7 +77,7 @@ type Input struct {
 }
 
 func (i *Input) IsSelect() bool {
-	return len(i.Options) > 0
+	return i.Type == "select" || len(i.Options) > 0
 }
 
 func (i *Input) IsMultiSelect() bool {
