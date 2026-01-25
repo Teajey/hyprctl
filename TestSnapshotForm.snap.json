@@ -55,7 +55,9 @@
         "name": "Register"
       },
       "Submit": {
-        "label": "Login"
+        "label": "Login",
+        "name": "",
+        "value": ""
       }
     }
   }

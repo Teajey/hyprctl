@@ -10,10 +10,9 @@ import (
 //
 // A submit name-value pair is mutually exclusive with those of any other Submit in the same form.
 type Submit struct {
-	Label string `json:"label,omitempty"`
-	// FIXME: why have a submit button without a name? Empty names and labels should be included to disincentivise useless c:Submit
-	Name  string `json:"name,omitempty"`
-	Value string `json:"value,omitempty"`
+	Label string `json:"label"`
+	Name  string `json:"name"`
+	Value string `json:"value"`
 }
 
 func (i Submit) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
