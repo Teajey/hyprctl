@@ -14,7 +14,6 @@
       </c:Select>
       <c:Map label="Any other arbitrary information you wanna provide?" name="misc"></c:Map>
       <c:Link href="/register">Register</c:Link>
-      <c:Submit>Login</c:Submit>
     </login>
   </c:Form>
 </myPage>

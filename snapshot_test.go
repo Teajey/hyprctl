@@ -31,7 +31,6 @@ type login struct {
 	FavouriteFood   hyprctl.Select
 	Misc            hyprctl.Map
 	Login           hyprctl.Link
-	Submit          hyprctl.Submit
 }
 
 func TestSnapshotForm(t *testing.T) {
@@ -77,9 +76,6 @@ func TestSnapshotForm(t *testing.T) {
 				Login: hyprctl.Link{
 					Name: "Register",
 					Href: "/register",
-				},
-				Submit: hyprctl.Submit{
-					Label: "Login",
 				},
 			},
 		},

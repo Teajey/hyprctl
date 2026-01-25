@@ -52,11 +52,6 @@
       "Login": {
         "href": "/register",
         "name": "Register"
-      },
-      "Submit": {
-        "label": "Login",
-        "name": "",
-        "value": ""
       }
     }
   }
