@@ -3,6 +3,7 @@ package hyprctl
 import (
 	"encoding/xml"
 	"net/url"
+	"sort"
 	"strings"
 )
 
@@ -34,8 +35,15 @@ func (m Map) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 
-	for k, values := range m.Entries {
-		for _, v := range values {
+	keys := make([]string, 0, len(m.Entries))
+	for k := range m.Entries {
+		keys = append(keys, k)
+	}
+
+	sort.Strings(keys)
+
+	for _, k := range keys {
+		for _, v := range m.Entries[k] {
 			keyElem := xml.StartElement{Name: xml.Name{Local: "c:Input"}}
 			keyElem.Attr = append(keyElem.Attr, xml.Attr{Name: xml.Name{Local: "name"}, Value: k})
 			keyElem.Attr = append(keyElem.Attr, xml.Attr{Name: xml.Name{Local: "value"}, Value: v})
