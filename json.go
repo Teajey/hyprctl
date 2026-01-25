@@ -37,5 +37,8 @@ func (i Input) MarshalJSON() ([]byte, error) {
 	if len(vals) < 2 {
 		j.Value = &vals[0]
 	}
+	if j.Type == "password" && *j.Value != "" {
+		*j.Value = "********"
+	}
 	return json.Marshal(j)
 }

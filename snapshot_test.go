@@ -50,6 +50,7 @@ func TestSnapshotForm(t *testing.T) {
 					Label:    "Password",
 					Name:     "password",
 					Type:     "password",
+					Value:    "my-secret-password",
 					Required: true,
 				},
 				ConfirmPassword: hyprctl.Input{
