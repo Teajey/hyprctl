@@ -11,15 +11,15 @@ import "encoding/xml"
 // which would usually be [Input], [Link], [Submit], etc.
 // but might also be something like `Error string` or `Warning string` fields.
 type Form[T any] struct {
-	Method   string `json:",omitempty"`
-	Elements T
+	Method   string `json:"method,omitempty"`
+	Elements T      `json:"elements"`
 }
 
 func (i Form[T]) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name = xml.Name{Local: "c:Form"}
 
 	if i.Method != "" {
-		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "Method"}, Value: i.Method})
+		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "method"}, Value: i.Method})
 	}
 
 	err := e.EncodeToken(start)

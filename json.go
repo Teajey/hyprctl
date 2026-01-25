@@ -3,19 +3,19 @@ package hyprctl
 import "encoding/json"
 
 type inputJson struct {
-	Label     string
-	Type      string `json:",omitempty"`
-	Name      string
-	Required  bool     `json:",omitempty"`
-	Value     *string  `json:",omitempty"`
-	MinLength uint     `json:",omitempty"`
-	MaxLength uint     `json:",omitempty"`
-	Step      float32  `json:",omitempty"`
-	Min       string   `json:",omitempty"`
-	Max       string   `json:",omitempty"`
-	Error     string   `json:",omitempty"`
-	Multiple  bool     `json:",omitempty"`
-	Options   []Option `json:",omitempty"`
+	Label     string   `json:"label"`
+	Type      string   `json:"type,omitempty"`
+	Name      string   `json:"name"`
+	Required  bool     `json:"required,omitempty"`
+	Value     *string  `json:"value,omitempty"`
+	MinLength uint     `json:"minlength,omitempty"`
+	MaxLength uint     `json:"maxlength,omitempty"`
+	Step      float32  `json:"step,omitempty"`
+	Min       string   `json:"min,omitempty"`
+	Max       string   `json:"max,omitempty"`
+	Error     string   `json:"error,omitempty"`
+	Multiple  bool     `json:"multiple,omitempty"`
+	Options   []Option `json:"options,omitempty"`
 }
 
 func (i Input) MarshalJSON() ([]byte, error) {

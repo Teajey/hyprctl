@@ -1,5 +1,5 @@
-<c:Map Label="" Name="data">
-  <c:Input Name="data[food]" Value="icecream"></c:Input>
-  <c:Input Name="data[drinks]" Value="water"></c:Input>
-  <c:Input Name="data[drinks]" Value="tea"></c:Input>
+<c:Map label="" name="data">
+  <c:Input name="data[food]" value="icecream"></c:Input>
+  <c:Input name="data[drinks]" value="water"></c:Input>
+  <c:Input name="data[drinks]" value="tea"></c:Input>
 </c:Map>

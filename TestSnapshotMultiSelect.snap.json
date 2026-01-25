@@ -1,9 +1,9 @@
 {
-  "Label": "Favourite animals",
-  "Name": "fav_anim",
-  "Required": true,
-  "Multiple": true,
-  "Options": [
+  "label": "Favourite animals",
+  "name": "fav_anim",
+  "required": true,
+  "multiple": true,
+  "options": [
     {
       "Value": "mouse",
       "Selected": true

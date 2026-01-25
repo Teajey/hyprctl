@@ -1,7 +1,7 @@
 {
-  "Label": "",
-  "Name": "",
-  "Entries": {
+  "label": "",
+  "name": "",
+  "entries": {
     "data[drinks]": [
       "water",
       "tea"

@@ -1,33 +1,33 @@
 {
   "Title": "Login to my thing",
   "Form": {
-    "Method": "POST",
-    "Elements": {
+    "method": "POST",
+    "elements": {
       "Username": {
-        "Label": "Username",
-        "Name": "username",
-        "Required": true,
-        "Value": ""
+        "label": "Username",
+        "name": "username",
+        "required": true,
+        "value": ""
       },
       "Password": {
-        "Label": "Password",
-        "Type": "password",
-        "Name": "password",
-        "Required": true,
-        "Value": ""
+        "label": "Password",
+        "type": "password",
+        "name": "password",
+        "required": true,
+        "value": ""
       },
       "ConfirmPassword": {
-        "Label": "Confirm password",
-        "Type": "password",
-        "Name": "confirmPassword",
-        "Required": true,
-        "Value": ""
+        "label": "Confirm password",
+        "type": "password",
+        "name": "confirmPassword",
+        "required": true,
+        "value": ""
       },
       "FavouriteFood": {
-        "Label": "Favourite food",
-        "Name": "favFood",
-        "Value": "",
-        "Options": [
+        "label": "Favourite food",
+        "name": "favFood",
+        "value": "",
+        "options": [
           {
             "Value": "fruit"
           },
@@ -46,16 +46,16 @@
         ]
       },
       "Misc": {
-        "Label": "Any other arbitrary information you wanna provide?",
-        "Name": "misc",
-        "Entries": null
+        "label": "Any other arbitrary information you wanna provide?",
+        "name": "misc",
+        "entries": null
       },
       "Login": {
-        "Href": "/register",
-        "Name": "Register"
+        "href": "/register",
+        "name": "Register"
       },
       "Submit": {
-        "Label": "Login"
+        "label": "Login"
       }
     }
   }

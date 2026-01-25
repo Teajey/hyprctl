@@ -1,10 +1,10 @@
 {
-  "Label": "Mug size",
-  "Type": "text",
-  "Name": "mugs",
-  "Required": true,
-  "Value": "Wumbo",
-  "Options": [
+  "label": "Mug size",
+  "type": "text",
+  "name": "mugs",
+  "required": true,
+  "value": "Wumbo",
+  "options": [
     {
       "Value": "Wumbo",
       "Selected": true
