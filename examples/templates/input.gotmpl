@@ -12,45 +12,29 @@ name="{{- .Name -}}" value="{{.Value}}"
 
 {{- end}}
 
-{{define "select_attrs" -}}
-
-name="{{- .Name -}}"
-{{- if .Required}} required {{- end -}}
-{{- if .Multiple}} multiple {{- end -}}
-{{- if .Error}} aria-invalid="true" aria-errormessage="{{.Name}}Error"{{- end -}}
-
-{{- end}}
-
 {{define "input_inner" -}}
-
-{{if eq .Options nil -}}
-  <input {{template "input_attrs" . -}}>
-{{- else -}}
-  <select {{template "select_attrs" . -}}>
-{{- range .Options}}
-    <option {{- if .Label}} value="{{.Value}}" {{- end -}} {{- if .Selected}} selected {{- end}} {{- if .Disabled}} disabled {{- end}}>
-      {{- or .Label .Value -}}
-    </option>
-{{- end}}
-  </select>
-{{- end -}}
-
+<input {{template "input_attrs" . -}}>
 {{- end}}
 
-{{define "input" -}}
+{{block "input" . -}}
 
 {{if .Label -}}
+
 <label>
   {{.Label}}
   {{template "input_inner" .}}
 </label>
-{{else -}}
+
+{{- else -}}
+
   {{- template "input_inner" . -}}
-{{- end -}}
-{{with .Error -}}
+
+{{- end}}
+
+{{- with .Error}}
 <div id="{{- $.Name -}}Error">
   {{.}}
 </div>
-{{- end}}
+{{- end -}}
 
 {{- end}}

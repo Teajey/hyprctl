@@ -28,7 +28,7 @@ type login struct {
 	Username        hyprctl.Input
 	Password        hyprctl.Input
 	ConfirmPassword hyprctl.Input
-	FavouriteFood   hyprctl.Input
+	FavouriteFood   hyprctl.Select
 	Misc            hyprctl.Map
 	Login           hyprctl.Link
 	Submit          hyprctl.Submit
@@ -59,7 +59,7 @@ func TestSnapshotForm(t *testing.T) {
 					Type:     "password",
 					Required: true,
 				},
-				FavouriteFood: hyprctl.Input{
+				FavouriteFood: hyprctl.Select{
 					Label: "Favourite food",
 					Name:  "favFood",
 					Options: []hyprctl.Option{
@@ -120,9 +120,8 @@ func TestSnapshotInput(t *testing.T) {
 }
 
 func TestSnapshotSelect(t *testing.T) {
-	input := hyprctl.Input{
+	input := hyprctl.Select{
 		Label:    "Mug size",
-		Type:     "text",
 		Name:     "mugs",
 		Required: true,
 		Options: []hyprctl.Option{
@@ -131,20 +130,24 @@ func TestSnapshotSelect(t *testing.T) {
 			{Label: "Small", Value: "sm"},
 		},
 	}
-	input.SetValues("Wumbo")
-	input.Validate()
+	form := url.Values{
+		"mugs":  {"Wumbo"},
+		"other": {"1"},
+	}
+	input.ExtractFormValues(form)
 
 	buf := bytes.NewBuffer([]byte{})
-	err := tm.ExecuteTemplate(buf, "input", input)
+	err := tm.ExecuteTemplate(buf, "select", input)
 	assert.FatalErr(t, "executing template", err)
 
 	assert.Snapshot(t, fmt.Sprintf("%s.snap.html", t.Name()), buf.Bytes())
 	assert.SnapshotXml(t, input)
 	assert.SnapshotJson(t, input)
+	assert.Eq(t, "only unmatched entries remain", 1, len(form))
 }
 
 func TestSnapshotMultiSelect(t *testing.T) {
-	input := hyprctl.Input{
+	input := hyprctl.Select{
 		Label:    "Favourite animals",
 		Multiple: true,
 		Name:     "fav_anim",
@@ -157,10 +160,9 @@ func TestSnapshotMultiSelect(t *testing.T) {
 	}
 
 	input.SetValues("dog", "cat", "mouse")
-	input.Validate()
 
 	buf := bytes.NewBuffer([]byte{})
-	err := tm.ExecuteTemplate(buf, "input", input)
+	err := tm.ExecuteTemplate(buf, "select", input)
 	assert.FatalErr(t, "executing template", err)
 
 	assert.Snapshot(t, fmt.Sprintf("%s.snap.html", t.Name()), buf.Bytes())

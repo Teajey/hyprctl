@@ -1,3 +1,4 @@
+{{block "map" . -}}
 <fieldset name="{{.Name}}">
   <legend>{{ .Label }}</legend>
   {{- range $k, $values := .Entries}}
@@ -6,3 +7,4 @@
     {{- end}}
   {{- end}}
 </fieldset>
+{{- end}}
