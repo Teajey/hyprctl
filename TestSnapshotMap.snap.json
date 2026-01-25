@@ -2,11 +2,11 @@
   "label": "",
   "name": "data",
   "entries": {
-    "data[drinks]": [
+    "drinks": [
       "water",
       "tea"
     ],
-    "data[food]": [
+    "food": [
       "icecream"
     ]
   }

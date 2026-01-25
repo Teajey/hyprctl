@@ -2,6 +2,7 @@ package hyprctl
 
 import (
 	"encoding/xml"
+	"fmt"
 	"net/url"
 	"sort"
 	"strings"
@@ -18,11 +19,21 @@ func (m *Map) ExtractFormValues(form url.Values) {
 		m.Entries = make(map[string][]string, len(form))
 	}
 	for k, v := range form {
-		if m.Name != "" && !strings.HasPrefix(k, m.Name+"[") && !strings.HasSuffix(k, "]") {
-			continue
+		var key string
+		if m.Name != "" {
+			after, ok := strings.CutPrefix(k, m.Name+"[")
+			if !ok {
+				continue
+			}
+			key, ok = strings.CutSuffix(after, "]")
+			if !ok {
+				continue
+			}
+		} else {
+			key = k
 		}
 		delete(form, k)
-		m.Entries[k] = v
+		m.Entries[key] = v
 	}
 }
 
@@ -43,9 +54,13 @@ func (m Map) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	sort.Strings(keys)
 
 	for _, k := range keys {
+		key := k
+		if m.Name != "" {
+			key = fmt.Sprintf("%s[%s]", m.Name, k)
+		}
 		for _, v := range m.Entries[k] {
 			keyElem := xml.StartElement{Name: xml.Name{Local: "c:Input"}}
-			keyElem.Attr = append(keyElem.Attr, xml.Attr{Name: xml.Name{Local: "name"}, Value: k})
+			keyElem.Attr = append(keyElem.Attr, xml.Attr{Name: xml.Name{Local: "name"}, Value: key})
 			keyElem.Attr = append(keyElem.Attr, xml.Attr{Name: xml.Name{Local: "value"}, Value: v})
 			if err := e.EncodeElement("", keyElem); err != nil {
 				return err
