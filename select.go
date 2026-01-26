@@ -59,7 +59,7 @@ func (s *Select) SetValues(values ...string) {
 	}
 }
 
-func (s *Select) Values() iter.Seq[string] {
+func (s Select) Values() iter.Seq[string] {
 	return iter.Seq[string](func(yield func(string) bool) {
 		for _, o := range s.Options {
 			if o.Selected {
@@ -71,7 +71,7 @@ func (s *Select) Values() iter.Seq[string] {
 	})
 }
 
-func (s *Select) Value() string {
+func (s Select) Value() string {
 	next, stop := iter.Pull(s.Values())
 	defer stop()
 	val, _ := next()
