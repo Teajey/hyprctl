@@ -68,6 +68,13 @@ func (s *Select) Values() iter.Seq[string] {
 	})
 }
 
+func (s *Select) Value() string {
+	next, stop := iter.Pull(s.Values())
+	defer stop()
+	val, _ := next()
+	return val
+}
+
 func (s *Select) ExtractFormValues(form url.Values) {
 	formValue, ok := form[s.Name]
 	if !ok {
