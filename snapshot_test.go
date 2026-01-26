@@ -21,7 +21,7 @@ func TestMain(m *testing.M) {
 type myPage struct {
 	hyprctl.Namespace
 	Title string
-	Form  hyprctl.Form[login]
+	Form  hyprctl.Form
 }
 
 type login struct {
@@ -33,13 +33,27 @@ type login struct {
 	Login           hyprctl.Link
 }
 
+func (l *login) ExtractValues(form url.Values) {
+	l.Username.ExtractFormValue(form)
+	l.Password.ExtractFormValue(form)
+	l.ConfirmPassword.ExtractFormValue(form)
+	l.FavouriteFood.ExtractFormValues(form)
+	l.Misc.ExtractFormValues(form)
+}
+
+func (l *login) Validate() {
+	l.Username.Validate()
+	l.Password.Validate()
+	l.ConfirmPassword.Validate()
+}
+
 func TestSnapshotForm(t *testing.T) {
-	form := myPage{
+	page := myPage{
 		Namespace: hyprctl.NewNamespace(),
 		Title:     "Login to my thing",
-		Form: hyprctl.Form[login]{
+		Form: hyprctl.Form{
 			Method: "POST",
-			Elements: login{
+			FormElements: &login{
 				Username: hyprctl.Input{
 					Label:    "Username",
 					Name:     "username",
@@ -49,7 +63,6 @@ func TestSnapshotForm(t *testing.T) {
 					Label:    "Password",
 					Name:     "password",
 					Type:     "password",
-					Value:    "my-secret-password",
 					Required: true,
 				},
 				ConfirmPassword: hyprctl.Input{
@@ -66,8 +79,9 @@ func TestSnapshotForm(t *testing.T) {
 						{Value: "vegetables"},
 						{Value: "meat"},
 						{Value: "fish"},
-						{Value: "bugs"},
+						{Label: "Bugs", Value: "bugs"},
 					},
+					Required: true,
 				},
 				Misc: hyprctl.Map{
 					Label: "Any other arbitrary information you wanna provide?",
@@ -81,8 +95,18 @@ func TestSnapshotForm(t *testing.T) {
 		},
 	}
 
-	assert.SnapshotXml(t, form)
-	assert.SnapshotJson(t, form)
+	form := url.Values{
+		"username":         {"john", "blane"},
+		"password":         {"123456"},
+		"confirm_password": {"123456"},
+		"misc[iq]":         {"80"},
+	}
+	page.Form.ExtractValues(form)
+	page.Form.Validate()
+
+	assert.SnapshotXml(t, page)
+	assert.SnapshotJson(t, page)
+	assert.Eq(t, "only unmatched entries remain", 2, len(form))
 }
 
 func TestSnapshotLink(t *testing.T) {

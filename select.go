@@ -16,7 +16,7 @@ type Option struct {
 
 func (o Option) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start = xml.StartElement{Name: xml.Name{Local: "c:Option"}}
-	if o.Selected && o.Value != "" {
+	if o.Selected {
 		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "selected"}})
 	}
 	if o.Disabled {
@@ -35,7 +35,7 @@ type Select struct {
 	Name     string   `json:"name"`
 	Required bool     `json:"required,omitempty"`
 	Options  []Option `json:"options"`
-	Error    string   `json:",omitempty"`
+	Error    string   `json:"error,omitempty"`
 }
 
 func (s *Select) SetValues(values ...string) {

@@ -12,6 +12,7 @@ type Map struct {
 	Label   string              `json:"label"`
 	Name    string              `json:"name"`
 	Entries map[string][]string `json:"entries"`
+	Error   string              `json:"error,omitempty"`
 }
 
 func (m Map) NamedKey(key string) string {

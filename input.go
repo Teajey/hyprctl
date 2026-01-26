@@ -89,11 +89,11 @@ func (p *Input) Validate() {
 		p.Error = fmt.Sprintf("%#v is required", p.Name)
 	}
 
-	if cmp.Less(p.Max, p.Value) {
+	if p.Max != "" && cmp.Less(p.Max, p.Value) {
 		p.Error = fmt.Sprintf("%#v must be less than %#v", p.Value, p.Max)
 	}
 
-	if cmp.Less(p.Value, p.Min) {
+	if p.Min != "" && cmp.Less(p.Value, p.Min) {
 		p.Error = fmt.Sprintf("%#v must be greater than %#v", p.Value, p.Max)
 	}
 
@@ -115,6 +115,10 @@ func (i *Input) ExtractFormValue(form url.Values) {
 	formValue, ok := form[i.Name]
 	if ok {
 		i.Value = formValue[0]
-		form[i.Name] = formValue[1:]
+		if len(formValue[1:]) > 0 {
+			form[i.Name] = formValue[1:]
+		} else {
+			delete(form, i.Name)
+		}
 	}
 }

@@ -17,19 +17,7 @@ type inputJson struct {
 }
 
 func (i Input) MarshalJSON() ([]byte, error) {
-	j := inputJson{
-		Label:     i.Label,
-		Type:      i.Type,
-		Name:      i.Name,
-		Required:  i.Required,
-		Value:     i.Value,
-		MinLength: i.MinLength,
-		MaxLength: i.MaxLength,
-		Step:      i.Step,
-		Min:       i.Min,
-		Max:       i.Max,
-		Error:     i.Error,
-	}
+	j := inputJson(i)
 	if j.Type == "password" && j.Value != "" {
 		j.Value = "********"
 	}
