@@ -78,7 +78,7 @@ func (s Select) Value() string {
 	return val
 }
 
-func (s *Select) ExtractFormValues(form url.Values) {
+func (s *Select) ExtractFormValue(form url.Values) {
 	formValue, ok := form[s.Name]
 	if !ok {
 		return

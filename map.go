@@ -23,7 +23,7 @@ func (m Map) NamedKey(key string) string {
 	}
 }
 
-func (m *Map) ExtractFormValues(form url.Values) {
+func (m *Map) ExtractFormValue(form url.Values) {
 	if m.Entries == nil {
 		m.Entries = make(map[string][]string, len(form))
 	}

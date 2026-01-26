@@ -37,8 +37,8 @@ func (l *login) ExtractValues(form url.Values) {
 	l.Username.ExtractFormValue(form)
 	l.Password.ExtractFormValue(form)
 	l.ConfirmPassword.ExtractFormValue(form)
-	l.FavouriteFood.ExtractFormValues(form)
-	l.Misc.ExtractFormValues(form)
+	l.FavouriteFood.ExtractFormValue(form)
+	l.Misc.ExtractFormValue(form)
 }
 
 func (l *login) Validate() {
@@ -156,7 +156,7 @@ func TestSnapshotSelect(t *testing.T) {
 		"mugs":  {"Wumbo"},
 		"other": {"1"},
 	}
-	input.ExtractFormValues(form)
+	input.ExtractFormValue(form)
 
 	buf := bytes.NewBuffer([]byte{})
 	err := tm.ExecuteTemplate(buf, "select", input)
@@ -200,7 +200,7 @@ func TestSnapshotMap(t *testing.T) {
 		"data[drinks]": {"water", "tea"},
 	}
 
-	input.ExtractFormValues(form)
+	input.ExtractFormValue(form)
 
 	buf := bytes.NewBuffer([]byte{})
 	err := tm.ExecuteTemplate(buf, "map.gotmpl", input)
@@ -220,7 +220,7 @@ func TestSnapshotBucket(t *testing.T) {
 		"data[drinks]": {"water", "tea"},
 	}
 
-	input.ExtractFormValues(form)
+	input.ExtractFormValue(form)
 
 	buf := bytes.NewBuffer([]byte{})
 	err := tm.ExecuteTemplate(buf, "map.gotmpl", input)
