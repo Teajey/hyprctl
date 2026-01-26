@@ -1,1 +1,1 @@
-<A Href="/register">Register</A>
+<c:Link href="/register">Register</c:Link>

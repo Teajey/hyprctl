@@ -1,0 +1,13 @@
+{
+  "label": "Random data",
+  "name": "data",
+  "entries": {
+    "drinks": [
+      "water",
+      "tea"
+    ],
+    "food": [
+      "icecream"
+    ]
+  }
+}

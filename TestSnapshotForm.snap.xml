@@ -1,8 +1,23 @@
-<Form Method="POST">
-  <content>
-    <Input Label="Username" Name="username" Value="" Required="true"></Input>
-    <Input Label="Password" Name="password" Type="password" Value="" Required="true"></Input>
-    <A Href="/register">Register</A>
-    <Submit>Login</Submit>
-  </content>
-</Form>
+<myPage xmlns:c="https://github.com/Teajey/hyprctl/blob/v0.4.0/README.md">
+  <Title>Login to my thing</Title>
+  <c:Form method="POST">
+    <login>
+      <c:Input label="Username" name="username" value="john" required="true"></c:Input>
+      <c:Input label="Password" name="password" type="password" value="********" required="true"></c:Input>
+      <c:Input label="Confirm password" name="confirmPassword" type="password" value="" required="true">
+        <c:Error>&#34;confirmPassword&#34; is required</c:Error>
+      </c:Input>
+      <c:Select label="Favourite food" name="favFood" required="true">
+        <c:Option>fruit</c:Option>
+        <c:Option>vegetables</c:Option>
+        <c:Option>meat</c:Option>
+        <c:Option>fish</c:Option>
+        <c:Option value="bugs">Bugs</c:Option>
+      </c:Select>
+      <c:Map label="Any other arbitrary information you wanna provide?" name="misc">
+        <c:Input name="misc[iq]" value="80"></c:Input>
+      </c:Map>
+      <c:Link href="/register">Register</c:Link>
+    </login>
+  </c:Form>
+</myPage>

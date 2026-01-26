@@ -1,25 +1,65 @@
 {
-  "Method": "POST",
-  "Elements": {
-    "Username": {
-      "Label": "Username",
-      "Name": "username",
-      "Required": true,
-      "Value": ""
-    },
-    "Password": {
-      "Label": "Password",
-      "Type": "password",
-      "Name": "password",
-      "Required": true,
-      "Value": ""
-    },
-    "RegisterLink": {
-      "Href": "/register",
-      "Name": "Register"
-    },
-    "Submit": {
-      "Label": "Login"
+  "Title": "Login to my thing",
+  "Form": {
+    "method": "POST",
+    "elements": {
+      "Username": {
+        "label": "Username",
+        "name": "username",
+        "required": true,
+        "value": "john"
+      },
+      "Password": {
+        "label": "Password",
+        "type": "password",
+        "name": "password",
+        "required": true,
+        "value": "********"
+      },
+      "ConfirmPassword": {
+        "label": "Confirm password",
+        "type": "password",
+        "name": "confirmPassword",
+        "required": true,
+        "value": "",
+        "error": "\"confirmPassword\" is required"
+      },
+      "FavouriteFood": {
+        "label": "Favourite food",
+        "name": "favFood",
+        "required": true,
+        "options": [
+          {
+            "Value": "fruit"
+          },
+          {
+            "Value": "vegetables"
+          },
+          {
+            "Value": "meat"
+          },
+          {
+            "Value": "fish"
+          },
+          {
+            "Label": "Bugs",
+            "Value": "bugs"
+          }
+        ]
+      },
+      "Misc": {
+        "label": "Any other arbitrary information you wanna provide?",
+        "name": "misc",
+        "entries": {
+          "iq": [
+            "80"
+          ]
+        }
+      },
+      "Login": {
+        "href": "/register",
+        "name": "Register"
+      }
     }
   }
 }

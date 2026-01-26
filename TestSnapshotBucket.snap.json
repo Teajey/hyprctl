@@ -1,0 +1,16 @@
+{
+  "label": "Leftover data",
+  "name": "",
+  "entries": {
+    "data[drinks]": [
+      "water",
+      "tea"
+    ],
+    "data[food]": [
+      "icecream"
+    ],
+    "tree": [
+      "oak"
+    ]
+  }
+}

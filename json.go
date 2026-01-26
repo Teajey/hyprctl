@@ -3,39 +3,23 @@ package hyprctl
 import "encoding/json"
 
 type inputJson struct {
-	Label     string
-	Type      string `json:",omitempty"`
-	Name      string
-	Required  bool     `json:",omitempty"`
-	Value     *string  `json:",omitempty"`
-	MinLength uint     `json:",omitempty"`
-	MaxLength uint     `json:",omitempty"`
-	Step      float32  `json:",omitempty"`
-	Min       string   `json:",omitempty"`
-	Max       string   `json:",omitempty"`
-	Error     string   `json:",omitempty"`
-	Multiple  bool     `json:",omitempty"`
-	Options   []Option `json:",omitempty"`
+	Label     string  `json:"label"`
+	Type      string  `json:"type,omitempty"`
+	Name      string  `json:"name"`
+	Required  bool    `json:"required,omitempty"`
+	Value     string  `json:"value"`
+	MinLength uint    `json:"minlength,omitempty"`
+	MaxLength uint    `json:"maxlength,omitempty"`
+	Step      float32 `json:"step,omitempty"`
+	Min       string  `json:"min,omitempty"`
+	Max       string  `json:"max,omitempty"`
+	Error     string  `json:"error,omitempty"`
 }
 
 func (i Input) MarshalJSON() ([]byte, error) {
-	vals := i.Values()
-	j := inputJson{
-		Label:     i.Label,
-		Type:      i.Type,
-		Name:      i.Name,
-		Required:  i.Required,
-		MinLength: i.MinLength,
-		MaxLength: i.MaxLength,
-		Step:      i.Step,
-		Min:       i.Min,
-		Max:       i.Max,
-		Error:     i.Error,
-		Multiple:  i.Multiple,
-		Options:   i.Options,
-	}
-	if len(vals) < 2 {
-		j.Value = &vals[0]
+	j := inputJson(i)
+	if j.Type == "password" && j.Value != "" {
+		j.Value = "********"
 	}
 	return json.Marshal(j)
 }

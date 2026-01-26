@@ -1,0 +1,42 @@
+{{define "select_attrs" -}}
+
+name="{{- .Name -}}"
+{{- if .Required}} required {{- end -}}
+{{- if .Multiple}} multiple {{- end -}}
+{{- if .Error}} aria-invalid="true" aria-errormessage="{{.Name}}Error"{{- end -}}
+
+{{- end}}
+
+{{define "select_inner" -}}
+
+  <select {{template "select_attrs" . -}}>
+{{- range .Options}}
+    <option {{- if .Label}} value="{{.Value}}" {{- end -}} {{- if .Selected}} selected {{- end}} {{- if .Disabled}} disabled {{- end}}>
+      {{- or .Label .Value -}}
+    </option>
+{{- end}}
+  </select>
+{{- end -}}
+
+{{block "select" . -}}
+{{if .Label -}}
+
+<label>
+  {{.Label}}
+  {{template "select_inner" .}}
+</label>
+
+{{- else -}}
+
+  {{- template "select_inner" . -}}
+
+{{- end -}}
+
+{{with .Error -}}
+<div id="{{- $.Name -}}Error">
+  {{.}}
+</div>
+{{- end}}
+
+{{- end}}
+
