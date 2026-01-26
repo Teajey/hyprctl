@@ -1,25 +1,23 @@
 {
   "label": "Mug size",
-  "type": "text",
   "name": "mugs",
   "required": true,
-  "value": "Wumbo",
   "options": [
     {
       "Value": "Wumbo",
       "Selected": true
     },
     {
-      "Value": "lg",
-      "Label": "Large"
+      "Label": "Large",
+      "Value": "lg"
     },
     {
-      "Value": "md",
-      "Label": "Medium"
+      "Label": "Medium",
+      "Value": "md"
     },
     {
-      "Value": "sm",
-      "Label": "Small"
+      "Label": "Small",
+      "Value": "sm"
     }
   ]
 }

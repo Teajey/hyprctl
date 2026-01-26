@@ -8,43 +8,25 @@ import (
 )
 
 type Option struct {
-	Value    string
 	Label    string `json:",omitempty"`
-	Selected bool   `json:",omitempty"`
-	Disabled bool   `json:",omitempty"`
+	Value    string
+	Selected bool `json:",omitempty"`
+	Disabled bool `json:",omitempty"`
 }
 
 func (o Option) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	start.Name.Local = "c:Option"
+	start = xml.StartElement{Name: xml.Name{Local: "c:Option"}}
 	if o.Selected && o.Value != "" {
 		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "selected"}})
 	}
 	if o.Disabled {
 		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "disabled"}})
 	}
+	label := cmp.Or(o.Label, o.Value)
 	if o.Label != "" {
 		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "value"}, Value: o.Value})
-		if err := e.EncodeToken(start); err != nil {
-			return err
-		}
-		if err := e.EncodeToken(xml.CharData(o.Label)); err != nil {
-			return err
-		}
-		if err := e.EncodeToken(start.End()); err != nil {
-			return err
-		}
-	} else {
-		if err := e.EncodeToken(start); err != nil {
-			return err
-		}
-		if err := e.EncodeToken(xml.CharData(o.Value)); err != nil {
-			return err
-		}
-		if err := e.EncodeToken(start.End()); err != nil {
-			return err
-		}
 	}
-	return nil
+	return e.EncodeElement(label, start)
 }
 
 type Select struct {
@@ -53,6 +35,7 @@ type Select struct {
 	Name     string   `json:"name"`
 	Required bool     `json:"required,omitempty"`
 	Options  []Option `json:"options"`
+	Error    string   `json:",omitempty"`
 }
 
 func (s *Select) SetValues(values ...string) {
@@ -62,8 +45,6 @@ func (s *Select) SetValues(values ...string) {
 			if o.Value == v {
 				s.Options[i].Selected = true
 				found = true
-			} else {
-				s.Options[i].Selected = false
 			}
 		}
 		if !found {
@@ -97,13 +78,20 @@ func (s *Select) ExtractFormValues(form url.Values) {
 		delete(form, s.Name)
 	} else {
 		s.SetValues(formValue[0])
-		form[s.Name] = formValue[1:]
+		if len(formValue[1:]) > 0 {
+			form[s.Name] = formValue[1:]
+		} else {
+			delete(form, s.Name)
+		}
 	}
 }
 
 func (i Select) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	start.Name.Local = "c:Select"
 
+	if i.Multiple {
+		start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "multiple"}})
+	}
 	start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "label"}, Value: i.Label})
 	start.Attr = append(start.Attr, xml.Attr{Name: xml.Name{Local: "name"}, Value: i.Name})
 	if i.Required {
@@ -115,12 +103,7 @@ func (i Select) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	}
 
 	for _, o := range i.Options {
-		optionElement := xml.StartElement{Name: xml.Name{Local: "c:Option"}}
-		label := cmp.Or(o.Label, o.Value)
-		if o.Label != "" {
-			optionElement.Attr = append(optionElement.Attr, xml.Attr{Name: xml.Name{Local: "value"}, Value: o.Value})
-		}
-		if err := e.EncodeElement(label, optionElement); err != nil {
+		if err := e.EncodeElement(o, start); err != nil {
 			return err
 		}
 	}

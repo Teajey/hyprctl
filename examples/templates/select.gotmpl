@@ -9,13 +9,13 @@ name="{{- .Name -}}"
 
 {{define "select_inner" -}}
 
-<select {{template "select_attrs" . -}}>
+  <select {{template "select_attrs" . -}}>
 {{- range .Options}}
-  <option {{- if .Label}} value="{{.Value}}" {{- end -}} {{- if .Selected}} selected {{- end}} {{- if .Disabled}} disabled {{- end}}>
-    {{- or .Label .Value -}}
-  </option>
+    <option {{- if .Label}} value="{{.Value}}" {{- end -}} {{- if .Selected}} selected {{- end}} {{- if .Disabled}} disabled {{- end}}>
+      {{- or .Label .Value -}}
+    </option>
 {{- end}}
-</select>
+  </select>
 {{- end -}}
 
 {{block "select" . -}}
@@ -26,7 +26,7 @@ name="{{- .Name -}}"
   {{template "select_inner" .}}
 </label>
 
-{{else -}}
+{{- else -}}
 
   {{- template "select_inner" . -}}
 

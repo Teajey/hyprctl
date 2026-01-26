@@ -1,6 +1,6 @@
-<c:MultiSelect label="Favourite animals" name="fav_anim" required="true">
+<c:Select multiple="" label="Favourite animals" name="fav_anim" required="true">
   <c:Option selected="">mouse</c:Option>
   <c:Option selected="" value="dog">Dog</c:Option>
   <c:Option selected="" value="cat">Cat</c:Option>
   <c:Option value="gn_pig">Guinea pig</c:Option>
-</c:MultiSelect>
+</c:Select>
