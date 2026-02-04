@@ -1,69 +1,50 @@
 {
   "Title": "Login to my thing",
   "Form": {
-    "method": "POST",
-    "elements": {
-      "Username": {
-        "label": "Username",
-        "name": "username",
-        "required": true,
-        "value": "john"
-      },
-      "Password": {
-        "label": "Password",
-        "type": "password",
-        "name": "password",
-        "required": true,
-        "value": "********"
-      },
-      "ConfirmPassword": {
-        "label": "Confirm password",
-        "type": "password",
-        "name": "confirmPassword",
-        "required": true,
-        "value": "",
-        "error": "\"confirmPassword\" is required"
-      },
-      "FavouriteFood": {
-        "label": "Favourite food",
-        "name": "favFood",
-        "required": true,
-        "options": [
-          {
-            "value": ""
-          },
-          {
-            "value": "fruit"
-          },
-          {
-            "value": "vegetables"
-          },
-          {
-            "value": "meat"
-          },
-          {
-            "value": "fish"
-          },
-          {
-            "label": "Bugs",
-            "value": "bugs",
-            "selected": true
-          }
-        ]
-      },
-      "Misc": {
-        "label": "Any other arbitrary information you wanna provide?",
-        "name": "misc",
-        "entries": {
-          "iq": [
-            "80"
-          ]
+    "Username": {
+      "error": "",
+      "value": "john"
+    },
+    "Password": {
+      "error": "",
+      "value": "********"
+    },
+    "ConfirmPassword": {
+      "error": "value is required",
+      "value": ""
+    },
+    "FavouriteFood": {
+      "error": "",
+      "options": [
+        {
+          "value": ""
+        },
+        {
+          "value": "fruit"
+        },
+        {
+          "value": "vegetables"
+        },
+        {
+          "value": "meat"
+        },
+        {
+          "value": "fish"
+        },
+        {
+          "value": "bugs",
+          "selected": true
         }
-      },
-      "Login": {
-        "label": "Register",
-        "href": "/register"
+      ]
+    },
+    "Misc": {
+      "error": "",
+      "entries": {
+        "iq": [
+          "80"
+        ]
       }
-    }
+    },
+    "LoginLink": "/register"
   }
 }
